@@ -1,0 +1,32 @@
+#Работа на учебном сервере.
+#Создайте переменную по умолчанию с вашей фамилией (пример CHUMAK), в которую поместите ваше имя
+#Создайте файл скрипта myscript.sh в рашей рабочей папке на сервере. Файл должен выполнить:
+#1 Создать подпапку test в вашей рабочей папке на сервере
+#2 Дописать в файл myfile.txt слова “Let’s GO” (файл должен располагаться в папке test)
+#3 Дописать в файл myfile.txt вывод из файла /var/spool/mail/ec2-user, но только строки, содержащие слово cron
+#4 Создать 3 подпапки с названием DIR01-DIR03 в папке test
+#5 В папку DIR01 поместить пустой файл 1.txt
+#6 В папку DIR02 поместить файл с информацией о всех процессах, запущеных на момент выполнения команды ps -ef
+#7 В папку DIR_03 поместить слово “DONE”
+#8 Дозаписать в файл myfile.txt содержимое переменной, сделанной ранее
+
+
+#!/bin/bash
+set -e
+mkdir -p /opt/200224_morning/dimaKorol/test /opt/200224_morning/dimaKorol/test/DIR_03
+echo "Let's GO" >> /opt/200224_morning/dimaKorol/test/myfile.txt
+cat /var/spool/mail/ec2-user | grep cron >> /opt/200224_morning/dimaKorol/test/myfile.txt
+                for i in {1..3}
+                do
+                mkdir -p /opt/200224_morning/dimaKorol/test/DIR0$i
+                done
+
+
+
+touch /opt/200224_morning/dimaKorol/test/DIR01/1.txt
+
+ps -ef > /opt/200224_morning/dimaKorol/test/DIR02/processes.txt
+
+echo "DONE" > /opt/200224_morning/dimaKorol/test/DIR_03/done.txt
+
+echo "$KOROL" >> /opt/200224_morning/dimaKorol/test/myfile.txt
